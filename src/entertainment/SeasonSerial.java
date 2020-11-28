@@ -7,6 +7,9 @@ public final class SeasonSerial {
     private int duration;
     private Map<Double, String> ratings;
 
+    /**
+     * Transfera datele de intrare in clasa SeasonSerial
+     */
     public SeasonSerial(final Season season, final int currentSeason,
                         final Map<Double, String> ratings) {
         this.currentSeason = currentSeason;
@@ -14,6 +17,9 @@ public final class SeasonSerial {
         this.ratings = ratings;
     }
 
+    /**
+     *  Calculeaza rating-ul total al unui sezon
+     */
     public double totalRatingSeason() {
         if (ratings.size() == 0) {
             return 0;
@@ -41,13 +47,4 @@ public final class SeasonSerial {
         this.ratings = ratings;
     }
 
-    @Override
-    public String toString() {
-        return "Episode{"
-                + "currentSeason="
-                + currentSeason
-                + ", duration="
-                + duration
-                + '}';
-    }
 }

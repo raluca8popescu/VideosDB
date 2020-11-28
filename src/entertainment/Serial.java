@@ -11,6 +11,9 @@ public final class Serial extends Video {
     private int duration;
     private int appearanceFav;
 
+    /**
+     * transfera datele de intrare din SerialInputData in clasa Serial
+     */
     public Serial(final SerialInputData serial) {
         super(serial.getTitle(), serial.getYear(), serial.getCast(), serial.getGenres());
         this.numberOfSeasons = serial.getNumberSeason();
@@ -22,6 +25,9 @@ public final class Serial extends Video {
         this.appearanceFav = 0;
     }
 
+    /**
+     * calculeaza rating-ul total al unui serial
+     */
     public double totalRatingSeasons() {
         if (seasons.size() == 0) {
             return 0;

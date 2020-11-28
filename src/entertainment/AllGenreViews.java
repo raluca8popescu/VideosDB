@@ -12,6 +12,10 @@ public final class AllGenreViews {
         this.genre = genre;
     }
 
+    /**
+     * returneaza primul video din lista de video-uri AllGenreViews
+     * care nu se afla in istoricul userului dat ca parametru
+     */
     public String getVideo(final User username) {
         Map<String, Integer> history = username.getHistory();
         for (GenreView genreView : genre) {

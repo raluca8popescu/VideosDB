@@ -3,6 +3,10 @@ package entertainment;
 import java.util.Comparator;
 
 public final class MyComparatorView implements Comparator<AllVideosView> {
+    /**
+     * compara cei doi AllVideoView dupa numarul de vizualizari,
+     * iar in caz de egalitate se verifica ordinea alfabetica
+     */
     public int compare(final AllVideosView v0, final AllVideosView v1) {
         double w0 = v0.getViews();
         double w1 = v1.getViews();

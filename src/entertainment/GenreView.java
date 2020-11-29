@@ -25,16 +25,11 @@ public final class GenreView {
         this.numberVideos = numberVideos;
     }
 
+    /**
+     * Adauga numele unui video in lista de String-uri videos
+     */
     public void addVideo(final String video) {
         this.videos.add(video);
     }
 
-    @Override
-    public String toString() {
-        return "GenreView{"
-                + "nameGenre='" + nameGenre + '\''
-                + ", numberVideos=" + numberVideos
-                + ", videos=" + videos
-                + '}';
-    }
 }

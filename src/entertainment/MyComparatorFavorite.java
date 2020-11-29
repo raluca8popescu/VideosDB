@@ -3,6 +3,10 @@ package entertainment;
 import java.util.Comparator;
 
 public final class MyComparatorFavorite implements Comparator<AllVideosFavorite> {
+    /**
+     * compara cele doua obiecte AllVideosFavorite dupa numarul de aparitii
+     * la favorite, iar in caz de egalitate se verifica ordinea alfabetica
+     */
     public int compare(final AllVideosFavorite v0, final AllVideosFavorite v1) {
         double w0 = v0.getAppearanceFav();
         double w1 = v1.getAppearanceFav();

@@ -23,11 +23,18 @@ import entertainment.MyComparatorView;
 import entertainment.Serial;
 import entertainment.Serials;
 
-import users.*;
+import users.Action;
+import users.MyComparatorUsers;
+import users.User;
+import users.Users;
+
+import fileio.Input;
+import fileio.InputLoader;
+import fileio.Writer;
+
 import checker.Checkstyle;
 import checker.Checker;
 import common.Constants;
-import fileio.*;
 import org.json.simple.JSONArray;
 
 import java.io.File;
@@ -35,7 +42,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.List;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Objects;
+
 
 /**
  * The entry point to this homework. It runs the checker that tests your implentation.
@@ -164,13 +177,8 @@ public final class Main {
                             title = actions.get(i).getTitle();
                             if (k != null) {
                                 Integer views = listUsers.addViews(title, k);
-                                if (views != 1) {
-                                    arrayResult.add(fileWriter.writeFile(id, title, "success -> "
+                                arrayResult.add(fileWriter.writeFile(id, title, "success -> "
                                             + title + " was viewed with total views of " + views));
-                                } else {
-                                    arrayResult.add(fileWriter.writeFile(id, title, "success -> "
-                                            + title + " was viewed with total views of " + views));
-                                }
                             }
                             break;
                         case "rating":
@@ -333,7 +341,7 @@ public final class Main {
                                     genre = actions.get(i).getFilters().get(1);
                                     int actNum = actions.get(i).getNumber();
                                     for (User user : users) {
-                                        listMovies.favoriteMovie(user);
+                                        listMovies.addAppFavorite(user);
                                     }
                                     listMovies.favoriteMovie(vFav, genre, year);
                                     if (actions.get(i).getSortType().equals("asc")) {
@@ -448,9 +456,9 @@ public final class Main {
                                     genre = actions.get(i).getFilters().get(1);
 
                                     for (User user : users) {
-                                        listSerials.favoriteSerials(user);
+                                        listSerials.addAppFavorite(user);
                                     }
-                                    listSerials.favoriteSerials(vFav, genre, year);
+                                    listSerials.favoriteSerial(vFav, genre, year);
                                     if (actions.get(i).getSortType().equals("asc")) {
                                         vFav.sort(Collections.
                                                 reverseOrder(new MyComparatorFavorite()));
@@ -577,6 +585,9 @@ public final class Main {
                             String video;
                             video = listMovies.firstMovie(users.get(nr));
                             if (video == null) {
+                                video = listSerials.firstSerial(users.get(nr));
+                            }
+                            if (video == null) {
                                 arrayResult.add(fileWriter.writeFile(id, video,
                                         "StandardRecommendation cannot be applied!"));
                             } else {
@@ -667,8 +678,8 @@ public final class Main {
                                 break;
                             }
                             for (User user : users) {
-                                listMovies.favoriteMovie(user);
-                                listSerials.favoriteSerials(user);
+                                listMovies.addAppFavorite(user);
+                                listSerials.addAppFavorite(user);
                             }
                             for (Movie movie : movies) {
                                 fav.add(new AllVideosFavorite(movie.getTitle(),
@@ -715,14 +726,12 @@ public final class Main {
                                     }
                                 }
                                 message.append("]");
-                                arrayResult.add(fileWriter.writeFile(id,
-                                        " ", message.toString()));
                             } else {
                                 message = new StringBuilder("SearchRecommendation"
                                         + " cannot be applied!");
-                                arrayResult.add(fileWriter.writeFile(id,
-                                        " ", message.toString()));
                             }
+                            arrayResult.add(fileWriter.writeFile(id,
+                                    " ", message.toString()));
                             break;
                         default:
                             break;

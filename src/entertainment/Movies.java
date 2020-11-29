@@ -69,7 +69,7 @@ public final class Movies {
      * Adauga pentru fiecare film numarul de aparitii in lista
      * de favorite a userului dat ca parametru
      */
-    public void favoriteMovie(final User name) {
+    public void addAppFavorite(final User name) {
         for (Movie movie : movies) {
             if (name.getFavoriteMovies().contains(movie.getTitle())) {
                 movie.setAppearanceFav(movie.getAppearanceFav() + 1);

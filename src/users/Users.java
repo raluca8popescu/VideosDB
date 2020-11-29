@@ -51,7 +51,7 @@ public final class Users {
      * verifica daca video-ul dat ca parametru este sau nu in istoric
      * daca nu este in istoric sau este in istoric, dar se afla
      * in lista de favorite, se va returna false
-     * in caz contrar, se va returna true
+     * in caz contrar, se va adauga in lista favorite si se va returna true
      */
     public boolean addFavorite(final String title,
                                final Map<String, Integer> k, final ArrayList<String> favorite) {

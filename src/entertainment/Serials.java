@@ -15,6 +15,9 @@ public final class Serials {
         this.serials = serials;
     }
 
+    /**
+     * Verifica daca titlul dat ca parametru este in lista de seriale
+     */
     public Double isSerial(final String title) {
         for (Serial serial : serials) {
             if (serial.getTitle().equals(title)) {
@@ -28,6 +31,12 @@ public final class Serials {
         return -1.0;
     }
 
+    /**
+     * Pentru un serial dat ca parametru, se cauta in lista de seriale
+     * Daca in lista sa de rating-uri se afla deja numele user-ului,
+     * se returneaza false. In caz contrar, se adauga un nou rating
+     * si se returneaza true.
+     */
     public boolean addRating(final String title, final String name,
                              final Double grade, final Integer season) {
         for (Serial serial : serials) {
@@ -44,8 +53,23 @@ public final class Serials {
         }
         return false;
     }
-
-    public void favoriteSerials(final User name) {
+    /**
+     * Se returneaza primul serial din lista de filme care nu se afla
+     * in istoricul user-ului
+     */
+    public String firstSerial(final User name) {
+        for (Serial serial : serials) {
+            if (!name.getHistory().containsKey(serial.getTitle())) {
+                return serial.getTitle();
+            }
+        }
+        return null;
+    }
+    /**
+     * Adauga pentru fiecare serial numarul de aparitii in lista
+     * de favorite a userului dat ca parametru
+     */
+    public void addAppFavorite(final User name) {
         for (Serial serial : serials) {
             if (name.getFavoriteMovies().contains(serial.getTitle())) {
                 serial.setAppearanceFav(serial.getAppearanceFav() + 1);
@@ -53,7 +77,10 @@ public final class Serials {
         }
 
     }
-
+    /**
+     * Adauga in lista allVideos doar serialele care contin genurile si anii
+     * din listele genre si year
+     */
     public void durationSerial(final ArrayList<AllVideosDuration> allVideos,
                                final List<String> genre, final List<String> year) {
         int ok;
@@ -73,8 +100,13 @@ public final class Serials {
         }
     }
 
-    public void favoriteSerials(final ArrayList<AllVideosFavorite> allVideos,
-                                final List<String> genre, final List<String> year) {
+    /**
+     * Adauga in lista allVideos doar serialele care contin genurile si anii
+     * din listele genre si year si au numarul de aparitii la favorite
+     * diferit de 0
+     */
+    public void favoriteSerial(final ArrayList<AllVideosFavorite> allVideos,
+                               final List<String> genre, final List<String> year) {
         int ok = 0;
         for (Serial serial : serials) {
             ok = 0;
@@ -116,6 +148,10 @@ public final class Serials {
         }
     }
 
+    /**
+     * Adauga in lista allVideos doar serialele care contin genurile si anii
+     * din listele genre si year si au numarul de vizualizari diferit de 0
+     */
     public void viewSerial(final ArrayList<AllVideosView> allVideos, final List<String> genre,
                            final List<String> year, final Users listUsers) {
         int ok = 0;
@@ -157,6 +193,10 @@ public final class Serials {
         }
     }
 
+    /**
+     * Adauga in lista videos doar serialele care contin genurile si anii
+     * din listele genre si year
+     */
     public void rateSerialFilters(final ArrayList<Rating> videos,
                                   final List<String> genre, final List<String> year) {
         int ok;
@@ -198,6 +238,10 @@ public final class Serials {
         }
     }
 
+    /**
+     * Adauga in lista videos doar serialele care sunt genul dat si nu se afla
+     * in istoricul dat ca parametru
+     */
     public void rateSerialGenre(final ArrayList<Rating> videos,
                                 final String genre, final Map<String, Integer> history) {
         for (Serial serial : serials) {
@@ -209,6 +253,10 @@ public final class Serials {
         }
     }
 
+    /**
+     * Adauga in lista videos doar serialele care nu se afla
+     * in istoricul dat ca parametru
+     */
     public void rateSerial(final ArrayList<Rating> videos, final Map<String, Integer> history) {
         for (int i = serials.size() - 1; i >= 0; i--) {
             if (!history.containsKey(serials.get(i).getTitle())) {
@@ -218,6 +266,10 @@ public final class Serials {
         }
     }
 
+    /**
+     * Adauga in lista de video-uri a fiecarui obiect genreViews
+     * doar video-urile care corespund genului obiectului
+     */
     public void createGenreView(final ArrayList<GenreView> genreViews) {
         for (Serial serial : serials) {
             ArrayList<String> genre = serial.getGenres();

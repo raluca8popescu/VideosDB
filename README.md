@@ -36,3 +36,16 @@ For videos:
   
 For users:
   - Number of ratings - the first N users sorted by the number of ratings they gave (practically the most active users)
+  
+
+Recommendations are user searches for videos. They are customized based on their profile and are based on 5 strategies:
+For all users:
+    - Standard - returns the first video unseen by the user in the database, with no second criterion.
+    - Best unseen - returns the best video unseen by that user. All videos are sorted in descending order by rating and the first of them is chosen, the second criterion being the order of appearance in the database.
+    
+For premium users only:
+    - Popular - returns the first unseen video of the most popular genre (videos are browsed according to the order in the database). Genre popularity is calculated from the total number of views of such videos. If all the videos of the most popular genre are viewed by the user, then it moves to the next most popular genre. The process resumes until the first video that was not viewed in the database is found.
+    
+    - Favorites - Returns the most common video in the favorites list (not seen by the recommended user) of all users, the second criterion being the order in which it appears in the database. The video must be in at least one list of users' favorite videos.
+    
+    - Search - all videos unseen by the user of a certain genre, given as an input filter. Sorted is in ascending order by rating, the second criterion being the name.
